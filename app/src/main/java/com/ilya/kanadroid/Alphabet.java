@@ -3,11 +3,23 @@ package com.ilya.kanadroid;
 import java.util.Random;
 
 public class Alphabet {
+    public int getLength(){
+        return hiragana.length;
+    }
+
+    public boolean isFinished(){
+        return finished;
+    }
+
     public Letter[] getNext(){
         Letter[] portion= new Letter[5];
 
+        assert (position < getLength());
         final int least = Math.min(3, hiragana.length - 1 - position);
         assert (least >= 0);
+
+        if(position >= getLength() - 3)
+            finished = true;
 
         if(position == 0){
             for(int i = 0; i < 5; ++i){
@@ -28,6 +40,7 @@ public class Alphabet {
     }
     Random random = new Random();
     int position = 0;
+    boolean finished = false;
     final Letter[] hiragana ={
             new Letter("あ", "a"),
             new Letter("い", "i"),
