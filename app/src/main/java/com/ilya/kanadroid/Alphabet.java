@@ -14,8 +14,8 @@ public class Alphabet {
     public Letter[] getNext(){
         Letter[] portion= new Letter[5];
 
-        assert (position < getLength());
-        final int least = Math.min(3, hiragana.length - 1 - position);
+        assert (position <= getLength());
+        final int least = Math.min(3, hiragana.length - position);
         assert (least >= 0);
 
         if(position >= getLength() - 3)
