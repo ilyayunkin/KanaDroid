@@ -59,7 +59,7 @@ public class Alphabet {
 
             new Letter("は", "ha"),
             new Letter("ひ", "hi"),
-            new Letter("ふ", "hu"),
+            new Letter("ふ", "fu"),
             new Letter("へ", "he"),
             new Letter("ほ", "ho"),
 
