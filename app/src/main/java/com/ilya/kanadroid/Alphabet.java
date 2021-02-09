@@ -6,22 +6,24 @@ public class Alphabet {
     public Letter[] getNext(){
         Letter[] portion= new Letter[5];
 
+        final int least = Math.min(3, hiragana.length - 1 - position);
+        assert (least >= 0);
+
         if(position == 0){
             for(int i = 0; i < 5; ++i){
                 portion[i] = hiragana[position + i];
             }
+            position+= 5;
         }else{
-            for(int i = 0; i < 3; ++i){
+            for(int i = 0; i < least; ++i){
                 portion[i] = hiragana[position + i];
             }
-            portion[3] = hiragana[random.nextInt(position)];
-            portion[4] = hiragana[random.nextInt(position)];
+            for(int i = least; i < 5; ++i){
+                portion[i] = hiragana[random.nextInt(position)];
+            }
+            position+= least;
         }
 
-        if(position == 0)
-            position+= 5;
-        else
-            position+= 3;
         return portion;
     }
     Random random = new Random();
@@ -79,8 +81,8 @@ public class Alphabet {
             new Letter("れ", "re"),
             new Letter("ろ", "ro"),
 
-            new Letter("ら", "wa"),
-            new Letter("ろ", "wo"),
+            new Letter("わ", "wa"),
+            new Letter("を", "wo"),
 
             new Letter("ん", "n"),
     };
