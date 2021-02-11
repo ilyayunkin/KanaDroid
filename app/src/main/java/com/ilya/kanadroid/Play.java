@@ -31,13 +31,14 @@ public class Play {
             System.out.println("Answers: " + Arrays.toString(rightLetter));
 
             if(isAllTrue()){
-                if(abc.isFinished()) {
+                boolean finished = abc.isFinished();
+                System.out.println("Update level");
+                updateLevel();
+                if(finished) {
                     playUi.showCongratsWin();
                 }else {
                     playUi.showCongratsLevel(level);
                 }
-                System.out.println("Update level");
-                updateLevel();
             }else{
                 System.out.println("Update letters");
                 updateLetter();
