@@ -31,9 +31,13 @@ public class Play {
             System.out.println("Answers: " + Arrays.toString(rightLetter));
 
             if(isAllTrue()){
+                if(abc.isFinished()) {
+                    playUi.showCongratsWin();
+                }else {
+                    playUi.showCongratsLevel(level);
+                }
                 System.out.println("Update level");
                 updateLevel();
-                playUi.showCongratsLevel(level);
             }else{
                 System.out.println("Update letters");
                 updateLetter();
