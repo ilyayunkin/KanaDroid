@@ -7,7 +7,18 @@ import java.util.Random;
 
 public class Play {
     //public:
-    public Play() {
+    public Play(IPlayUi playUi) {
+        System.out.println("Play(IPlayUi playUi)");
+        this.playUi = playUi;
+        abc = new Alphabet();
+        loadLetters();
+    }
+
+    public Play(IPlayUi playUi, int position, int level) {
+        System.out.println("Play(IPlayUi playUi, int position, int level)");
+        this.playUi = playUi;
+        this.level = level;
+        abc = new Alphabet(position);
         loadLetters();
     }
 
@@ -22,6 +33,7 @@ public class Play {
             if(isAllTrue()){
                 System.out.println("Update level");
                 updateLevel();
+                playUi.showCongratsLevel(level);
             }else{
                 System.out.println("Update letters");
                 updateLetter();
@@ -68,6 +80,7 @@ public class Play {
     }
     private void updateLevel(){
         loadLetters();
+        ++level;
     }
     private void loadLetters(){
         portion = abc.getNext();
@@ -87,14 +100,24 @@ public class Play {
         return allTrue;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public int getPosition() {
+        return abc.getPosition();
+    }
+
     //private data:
-    private Alphabet abc = new Alphabet();
+    private IPlayUi playUi;
+    private Alphabet abc;
 
     private final Random random = new Random();
 
     private Letter[] portion= new Letter[5];
     private Letter currentLetter;
 
+    private int level = 1;
     private int right = 0;
     private int wrong = 0;
     private int currentIndex = 0;

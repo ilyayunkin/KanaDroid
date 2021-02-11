@@ -3,6 +3,13 @@ package com.ilya.kanadroid;
 import java.util.Random;
 
 public class Alphabet {
+    public Alphabet(int position) {
+        this.position = position;
+    }
+
+    public Alphabet() {
+    }
+
     public int getLength(){
         return hiragana.length;
     }
@@ -38,6 +45,12 @@ public class Alphabet {
 
         return portion;
     }
+    // private:
+    public int getPosition() {
+        return position;
+    }
+
+    // private data:
     Random random = new Random();
     int position = 0;
     boolean finished = false;
