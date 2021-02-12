@@ -84,5 +84,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textView;
     private TextView rightView;
     private TextView wrongView;
-    private Play play = new Play(this);
+    private Play play = new Play(this, 1);
 }

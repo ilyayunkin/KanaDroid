@@ -7,18 +7,15 @@ import java.util.Random;
 
 public class Play {
     //public:
-    public Play(IPlayUi playUi) {
-        System.out.println("Play(IPlayUi playUi)");
-        this.playUi = playUi;
-        abc = new Alphabet();
-        loadLetters();
-    }
 
-    public Play(IPlayUi playUi, int position, int level) {
+    public Play(IPlayUi playUi, final int level) {
+        assert (level >= 1);
+
         System.out.println("Play(IPlayUi playUi, int position, int level)");
         this.playUi = playUi;
         this.level = level;
-        abc = new Alphabet(position);
+        int position = (level > 1) ? (5 + (level - 2) * 3) : 0;
+        abc = new Alphabet(new Hiragana().getMonographs(), position);
         loadLetters();
     }
 
