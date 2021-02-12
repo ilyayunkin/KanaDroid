@@ -1,10 +1,103 @@
 package com.ilya.kanadroid;
 
 public class Hiragana implements Charset {
-    //@overrides
+    @Override
     public final Letter[] getMonographs(){
         return monographs;
     }
+
+    @Override
+    public Letter[] getDiacritics() {
+        return diacritics;
+    }
+
+    @Override
+    public Letter[] getDigraphs() {
+        return new Letter[0];
+    }
+
+    final Letter[] diacritics ={
+            new Letter("が", "ga"),
+            new Letter("ぎ", "gi"),
+            new Letter("ぐ", "gu"),
+            new Letter("げ", "ge"),
+            new Letter("ご", "go"),
+
+            new Letter("ざ", "za"),
+            new Letter("じ", "ji"),
+            new Letter("ず", "zu"),
+            new Letter("ぜ", "ze"),
+            new Letter("ぞ", "zo"),
+
+            new Letter("だ", "da"),
+            new Letter("ぢ", "ji"),
+            new Letter("づ", "zu"),
+            new Letter("で", "de"),
+            new Letter("ど", "do"),
+
+            new Letter("ば", "ba"),
+            new Letter("び", "bi"),
+            new Letter("ぶ", "bu"),
+            new Letter("べ", "be"),
+            new Letter("ぼ", "bo"),
+
+            new Letter("ぱ", "pa"),
+            new Letter("ぴ", "pi"),
+            new Letter("ぷ", "pu"),
+            new Letter("ぺ", "pe"),
+            new Letter("ぽ", "po"),
+    };
+
+    final Letter[] digraphs ={
+            new Letter("きゃ", "kya"),
+            new Letter("きゅ", "kyu"),
+            new Letter("きょ", "kyo"),
+
+            new Letter("しゃ", "sha"),
+            new Letter("しゅ", "shu"),
+            new Letter("しょ", "sho"),
+
+            new Letter("ちゃ", "cha"),
+            new Letter("ちゅ", "chu"),
+            new Letter("ちょ", "cho"),
+
+            new Letter("にゃ", "nya"),
+            new Letter("にゅ", "nyu"),
+            new Letter("にょ", "nyo"),
+
+            new Letter("ひゃ", "hya"),
+            new Letter("ひゅ", "hyu"),
+            new Letter("ひょ", "hyo"),
+
+            new Letter("みゃ", "mya"),
+            new Letter("みゅ", "myu"),
+            new Letter("みょ", "myo"),
+
+            new Letter("りゃ", "rya"),
+            new Letter("りゅ", "ryu"),
+            new Letter("りょ", "ryo"),
+
+            new Letter("ぎゃ", "gya"),
+            new Letter("ぎゅ", "gyu"),
+            new Letter("ぎょ", "gyo"),
+
+            new Letter("じゃ", "ja"),
+            new Letter("じゅ", "ju"),
+            new Letter("じょ", "jo"),
+
+            new Letter("ぢゃ", "ja"),
+            new Letter("ぢゅ", "ju"),
+            new Letter("ぢょ", "jo"),
+            
+            new Letter("びゃ", "bya"),
+            new Letter("びゅ", "byu"),
+            new Letter("びょ", "byo"),
+
+            new Letter("ぴゃ", "pya"),
+            new Letter("ぴゅ", "pyu"),
+            new Letter("ぴょ", "pyo"),
+    };
+
     final Letter[] monographs ={
             new Letter("あ", "a"),
             new Letter("い", "i"),
