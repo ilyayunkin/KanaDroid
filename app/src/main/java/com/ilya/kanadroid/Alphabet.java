@@ -8,9 +8,6 @@ public class Alphabet {
         this.charset = charset;
     }
 
-    public Alphabet() {
-    }
-
     public int getLength(){
         return charset.length;
     }
@@ -20,25 +17,27 @@ public class Alphabet {
     }
 
     public Letter[] getNext(){
-        Letter[] portion= new Letter[5];
+        final int portionSize = 5;
+        final int newCharactersInPortion = 3;
+        Letter[] portion= new Letter[portionSize];
 
         assert (position <= getLength());
-        final int least = Math.min(3, charset.length - position);
+        final int least = Math.min(newCharactersInPortion, charset.length - position);
         assert (least >= 0);
 
-        if(position >= getLength() - 3)
+        if(position >= getLength() - newCharactersInPortion)
             finished = true;
 
         if(position == 0){
-            for(int i = 0; i < 5; ++i){
+            for(int i = 0; i < portionSize; ++i){
                 portion[i] = charset[position + i];
             }
-            position+= 5;
+            position+= portionSize;
         }else{
             for(int i = 0; i < least; ++i){
                 portion[i] = charset[position + i];
             }
-            for(int i = least; i < 5; ++i){
+            for(int i = least; i < portionSize; ++i){
                 portion[i] = charset[random.nextInt(position)];
             }
             position+= least;
