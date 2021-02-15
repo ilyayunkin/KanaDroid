@@ -88,7 +88,7 @@ public class Hiragana implements Charset {
             new Letter("ぢゃ", "ja"),
             new Letter("ぢゅ", "ju"),
             new Letter("ぢょ", "jo"),
-            
+
             new Letter("びゃ", "bya"),
             new Letter("びゅ", "byu"),
             new Letter("びょ", "byo"),

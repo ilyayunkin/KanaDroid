@@ -8,14 +8,13 @@ import java.util.Random;
 public class Play {
     //public:
 
-    public Play(IPlayUi playUi, final int level) {
+    public Play(IPlayUi playUi, final int level, Alphabet abc) {
         assert (level >= 1);
 
         System.out.println("Play(IPlayUi playUi, int position, int level)");
         this.playUi = playUi;
         this.level = level;
-        int position = (level > 1) ? (5 + (level - 2) * 3) : 0;
-        abc = new Alphabet(new Hiragana().getMonographs(), position);
+        this.abc = abc;
         loadLetters();
     }
 
