@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener, IPlayUi {
     // public:
@@ -81,9 +82,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 
     // private:
     private void updateInterface() {
-        Letter portion[] = play.getPortion();
+        ArrayList<Letter> lettersSet = play.getLettersSet();
+        ArrayList<Letter> buttonsSet = play.getButtonsSet();
         for(int i = 0; i < 5; ++i){
-            buttons.get(i).setText(portion[i].reading);
+            buttons.get(i).setText(buttonsSet.get(i).reading);
         }
         textView.setText(play.getCurrentLetter().letter);
     }

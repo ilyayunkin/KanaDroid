@@ -1,7 +1,9 @@
 package com.ilya.kanadroid;
 
+import java.util.ArrayList;
+
 public interface Charset {
-    public abstract Letter[] getMonographs();
-    public abstract Letter[] getDiacritics();
-    public abstract Letter[] getDigraphs();
+    public abstract ArrayList<Letter> getMonographs();
+    public abstract ArrayList<Letter> getDiacritics();
+    public abstract ArrayList<Letter> getDigraphs();
 }

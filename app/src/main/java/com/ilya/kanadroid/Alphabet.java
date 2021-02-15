@@ -1,44 +1,50 @@
 package com.ilya.kanadroid;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Alphabet {
-    public Alphabet(Letter[] charset, int position) {
+    public Alphabet(ArrayList<Letter> charset, int position) {
         this.position = position;
         this.charset = charset;
     }
 
     public int getLength(){
-        return charset.length;
+        return charset.size();
     }
 
     public boolean isFinished(){
         return finished;
     }
 
-    public Letter[] getNext(){
+    public ArrayList<Letter> getNext(){
+        assert (position <= getLength());
         final int portionSize = 5;
         final int newCharactersInPortion = 3;
-        Letter[] portion= new Letter[portionSize];
-
-        assert (position <= getLength());
-        final int least = Math.min(newCharactersInPortion, charset.length - position);
-        assert (least >= 0);
 
         if(position >= getLength() - newCharactersInPortion)
             finished = true;
 
+        ArrayList<Letter> portion= new ArrayList<Letter>();
         if(position == 0){
             for(int i = 0; i < portionSize; ++i){
-                portion[i] = charset[position + i];
+                portion.add(charset.get(i));
             }
             position+= portionSize;
         }else{
+            final int least = Math.min(newCharactersInPortion, charset.size() - position);
+            assert (least >= 0);
+
             for(int i = 0; i < least; ++i){
-                portion[i] = charset[position + i];
+                portion.add(charset.get(position + i));
             }
-            for(int i = least; i < portionSize; ++i){
-                portion[i] = charset[random.nextInt(position)];
+            {
+                List<Letter> learnedSubrange = charset.subList(0, position);
+                Collections.shuffle(learnedSubrange);
+                for(int i = 0; i < portionSize - least; ++i){
+                    portion.add(learnedSubrange.get(i));
+                }
             }
             position+= least;
         }
@@ -51,8 +57,7 @@ public class Alphabet {
     }
 
     // private data:
-    Random random = new Random();
     int position = 0;
     boolean finished = false;
-    Letter[] charset;
+    ArrayList<Letter> charset;
 }

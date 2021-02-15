@@ -1,22 +1,31 @@
 package com.ilya.kanadroid;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class Katakana implements Charset {
     @Override
-    public final Letter[] getMonographs(){
+    public final ArrayList<Letter> getMonographs(){
         return monographs;
     }
 
     @Override
-    public Letter[] getDiacritics() {
+    public ArrayList<Letter> getDiacritics() {
         return diacritics;
     }
 
     @Override
-    public Letter[] getDigraphs() {
-        return new Letter[0];
+    public ArrayList<Letter> getDigraphs() {
+        return digraphs;
     }
 
-    final Letter[] diacritics ={
+    final ArrayList<Letter> diacritics = new ArrayList<Letter>(
+        List.of(
             new Letter("ガ", "ga"),
             new Letter("ギ", "gi"),
             new Letter("グ", "gu"),
@@ -45,10 +54,10 @@ public class Katakana implements Charset {
             new Letter("ピ", "pi"),
             new Letter("プ", "pu"),
             new Letter("ペ", "pe"),
-            new Letter("ポ", "po"),
-    };
+            new Letter("ポ", "po")));
 
-    final Letter[] digraphs ={
+    final ArrayList<Letter> digraphs = new ArrayList<Letter>(
+        List.of(
             new Letter("キャ", "kya"),
             new Letter("キュ", "kyu"),
             new Letter("キョ", "kyo"),
@@ -95,10 +104,10 @@ public class Katakana implements Charset {
 
             new Letter("ピャ", "pya"),
             new Letter("ピュ", "pyu"),
-            new Letter("ピョ", "pyo"),
-    };
+            new Letter("ピョ", "pyo")));
 
-    final Letter[] monographs ={
+    final ArrayList<Letter> monographs = new ArrayList<Letter>(
+            List.of(
             new Letter("ア", "a"),
             new Letter("イ", "i"),
             new Letter("ウ", "u"),
@@ -154,6 +163,5 @@ public class Katakana implements Charset {
             new Letter("ワ", "wa"),
             new Letter("ヲ", "wo"),
 
-            new Letter("ン", "n"),
-    };
+            new Letter("ン", "n")));
 }

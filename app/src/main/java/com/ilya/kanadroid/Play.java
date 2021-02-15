@@ -1,8 +1,8 @@
 package com.ilya.kanadroid;
 
-import android.widget.Toast;
-
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class Play {
@@ -54,8 +54,12 @@ public class Play {
         return currentLetter;
     }
 
-    public Letter[] getPortion() {
-        return portion;
+    public ArrayList<Letter> getLettersSet() {
+        return lettersSet;
+    }
+
+    public ArrayList<Letter> getButtonsSet() {
+        return buttonsSet;
     }
 
     public int getRight() {
@@ -69,13 +73,8 @@ public class Play {
     // private:
     private void updateLetter(){
         Letter oldLetter = currentLetter;
-        currentIndex = random.nextInt(5);
-        Letter newLetter = portion[currentIndex];
-
-        while(newLetter == oldLetter){
-            currentIndex = random.nextInt(5);
-            newLetter = portion[currentIndex];
-        };
+        currentIndex = (currentIndex + 1) % lettersSet.size();
+        Letter newLetter = lettersSet.get(currentIndex);
 
         currentLetter = newLetter;
     }
@@ -84,7 +83,11 @@ public class Play {
         ++level;
     }
     private void loadLetters(){
-        portion = abc.getNext();
+        lettersSet = abc.getNext();
+        Collections.shuffle(lettersSet);
+        buttonsSet = new ArrayList<Letter>(lettersSet);
+        Collections.shuffle(buttonsSet);
+
         for(int i = 0; i < 5; ++i){
             rightLetter[i] = false;
         }
@@ -115,7 +118,9 @@ public class Play {
 
     private final Random random = new Random();
 
-    private Letter[] portion= new Letter[5];
+    private ArrayList<Letter> lettersSet = new ArrayList<Letter>(5);
+
+    private ArrayList<Letter> buttonsSet = new ArrayList<Letter>(5);
     private Letter currentLetter;
 
     private int level = 1;
