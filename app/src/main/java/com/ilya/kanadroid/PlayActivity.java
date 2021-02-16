@@ -42,12 +42,28 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         final GlobalPlaySettings.AlphabetType alphabetType = GlobalPlaySettings.getAlphabetType();
         final int level = 0;
         int position = (level > 1) ? (5 + (level - 2) * 3) : 0;
-        Alphabet abc;
+
+        Charset charset;
         if(alphabetType == GlobalPlaySettings.AlphabetType.HIRAGANA){
-            abc = new Alphabet(new Hiragana().getMonographs(), position);
+            charset = new Hiragana();
         }else{
-            abc = new Alphabet(new Katakana().getMonographs(), position);
+            charset = new Katakana();
         }
+
+        ArrayList<Letter> letters;
+        switch (GlobalPlaySettings.getLessonType()){
+            case DIACRITICS:
+                letters = charset.getDiacritics();
+                break;
+            case DIGRAPHS:
+                letters = charset.getDigraphs();
+                break;
+            default:
+                letters = charset.getMonographs();
+                break;
+        }
+
+        Alphabet abc = new Alphabet(letters, position);;
         play = new Play(this, 1, abc);
 
         setContentView(R.layout.activity_play);

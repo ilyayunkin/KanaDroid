@@ -5,6 +5,11 @@ public class GlobalPlaySettings {
         HIRAGANA,
         KATAKANA,
     }
+    public enum LessonType{
+        MONOGRAPHS,
+        DIGRAPHS,
+        DIACRITICS,
+    }
 
     public static AlphabetType getAlphabetType() {
         return alphabetType;
@@ -14,5 +19,15 @@ public class GlobalPlaySettings {
         GlobalPlaySettings.alphabetType = alphabetType;
     }
 
+    public static LessonType getLessonType() {
+        return lessonType;
+    }
+
+    public static void setLessonType(LessonType lessonType) {
+        GlobalPlaySettings.lessonType = lessonType;
+    }
+
     static private AlphabetType alphabetType;
+
+    static private LessonType lessonType;
 }

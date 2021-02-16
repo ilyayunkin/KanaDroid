@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             GlobalPlaySettings.setAlphabetType(GlobalPlaySettings.AlphabetType.KATAKANA);
         }
-        Intent intent = new Intent(this, PlayActivity.class);
+        Intent intent = new Intent(this, LessonTypeActivity.class);
         startActivity(intent);
     }
 }
