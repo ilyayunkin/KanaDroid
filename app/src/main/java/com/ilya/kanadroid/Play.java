@@ -22,30 +22,28 @@ public class Play {
         String rightAnswer = currentLetter.reading;
         if(answer.equals(rightAnswer)){
             ++right;
-            rightLetter[currentIndex] = true;
+            ++rightLetter[currentIndex];
 
             System.out.println("Answers: " + Arrays.toString(rightLetter));
 
             if(isAllTrue()){
                 boolean finished = abc.isFinished();
                 System.out.println("Update level");
-                updateLevel();
                 if(finished) {
                     playUi.showCongratsWin();
                 }else {
-                    playUi.showCongratsLevel(level);
+                    playUi.showCongratsLevel(level + 1);
                 }
+                updateLevel();
             }else{
                 System.out.println("Update letters");
                 updateLetter();
             }
             return true;
         }else{
-            updateLetter();
+            rightLetter[currentIndex] = 0;
             ++wrong;
-            for(int i = 0; i < 5; ++i){
-                rightLetter[i] = false;
-            }
+            updateLetter();
             return false;
         }
     }
@@ -70,16 +68,26 @@ public class Play {
         return wrong;
     }
 
+    public int[] getRightLetter() {
+        return rightLetter;
+    }
+
     // private:
     private void updateLetter(){
-        Letter oldLetter = currentLetter;
         currentIndex = (currentIndex + 1) % lettersSet.size();
-        Letter newLetter = lettersSet.get(currentIndex);
+        setLetter(currentIndex);
+    }
+
+    private void setLetter(int index) {
+        Letter oldLetter = currentLetter;
+        Letter newLetter = lettersSet.get(index);
 
         currentLetter = newLetter;
     }
+
     private void updateLevel(){
         loadLetters();
+        currentIndex = 0;
         ++level;
     }
     private void loadLetters(){
@@ -89,15 +97,15 @@ public class Play {
         Collections.shuffle(buttonsSet);
 
         for(int i = 0; i < 5; ++i){
-            rightLetter[i] = false;
+            rightLetter[i] = 0;
         }
-        updateLetter();
+        setLetter(0);
     }
 
     private boolean isAllTrue() {
         boolean allTrue = true;
         for(int i = 0; i < 5; ++i) {
-            if(rightLetter[i] == false) {
+            if(rightLetter[i] < 3) {
                 allTrue = false;
             }
         }
@@ -127,5 +135,6 @@ public class Play {
     private int right = 0;
     private int wrong = 0;
     private int currentIndex = 0;
-    private boolean[] rightLetter = new boolean[5];
+
+    private int[] rightLetter = new int[5];
 }

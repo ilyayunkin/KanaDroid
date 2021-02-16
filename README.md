@@ -6,3 +6,4 @@
 
 ## Credits
 * [Image](https://pixabay.com/images/id-5926892/)
+* [Image](https://commons.wikimedia.org/wiki/File:A_star.png)

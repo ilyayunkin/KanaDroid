@@ -1,15 +1,16 @@
 package com.ilya.kanadroid;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener, IPlayUi {
     // public:
@@ -53,11 +54,20 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         textView = findViewById(R.id.letterTextView);
         rightView = findViewById(R.id.rightView);
         wrongView = findViewById(R.id.wrongView);
-        buttons.add((Button)findViewById(R.id.button1));
-        buttons.add((Button)findViewById(R.id.button2));
-        buttons.add((Button)findViewById(R.id.button3));
-        buttons.add((Button)findViewById(R.id.button4));
-        buttons.add((Button)findViewById(R.id.button5));
+        {
+            buttons.add((Button) findViewById(R.id.button1));
+            buttons.add((Button) findViewById(R.id.button2));
+            buttons.add((Button) findViewById(R.id.button3));
+            buttons.add((Button) findViewById(R.id.button4));
+            buttons.add((Button) findViewById(R.id.button5));
+        }
+        {
+            stars.add((ImageView) findViewById(R.id.starImageView1));
+            stars.add((ImageView) findViewById(R.id.starImageView2));
+            stars.add((ImageView) findViewById(R.id.starImageView3));
+            stars.add((ImageView) findViewById(R.id.starImageView4));
+            stars.add((ImageView) findViewById(R.id.starImageView5));
+        }
         for(int i = 0; i < 5; ++i){
             buttons.get(i).setOnClickListener(this);
         }
@@ -67,7 +77,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     public void showCongratsLevel(final int level){
         System.out.println("showCongratsLevel: " + level);
         Intent intent = new Intent(this, CongratsActivity.class);
-        String congrat = "You reached level " + play.getLevel();
+        String congrat = "You reached level " + level;
         System.out.println("showCongratsLevel: " + congrat);
         intent.putExtra("text", congrat);
         startActivity(intent);
@@ -84,14 +94,33 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private void updateInterface() {
         ArrayList<Letter> lettersSet = play.getLettersSet();
         ArrayList<Letter> buttonsSet = play.getButtonsSet();
+        int[] rightAnswers = play.getRightLetter();
+        assert (lettersSet.size() == buttonsSet.size());
+        assert (lettersSet.size() == rightAnswers.length);
+
         for(int i = 0; i < 5; ++i){
             buttons.get(i).setText(buttonsSet.get(i).reading);
+            ImageView star = stars.get(i);
+            switch (rightAnswers[i]) {
+                case 0:
+                    star.setImageResource(R.drawable.star_empty);
+                    break;
+                case 1:
+                    star.setImageResource(R.drawable.star_quart);
+                    break;
+                case 2:
+                    star.setImageResource(R.drawable.star_half);
+                    break;
+                default:
+                    star.setImageResource(R.drawable.star_full);
+            }
         }
         textView.setText(play.getCurrentLetter().letter);
     }
 
     // private data:
     private ArrayList<Button> buttons = new ArrayList<Button>();
+    private ArrayList<ImageView> stars = new ArrayList<ImageView>();
     private TextView textView;
     private TextView rightView;
     private TextView wrongView;
