@@ -18,7 +18,7 @@ public class Alphabet {
         return finished;
     }
 
-    public ArrayList<Letter> getNext(){
+    public Level getNext(){
         assert (position <= getLength());
         final int portionSize = 5;
         final int newCharactersInPortion = 3;
@@ -26,10 +26,10 @@ public class Alphabet {
         if(position >= getLength() - newCharactersInPortion)
             finished = true;
 
-        ArrayList<Letter> portion= new ArrayList<Letter>();
+        Level portion= new Level();
         if(position == 0){
             for(int i = 0; i < portionSize; ++i){
-                portion.add(charset.get(i));
+                portion.add(charset.get(i), true);
             }
             position+= portionSize;
         }else{
@@ -37,18 +37,19 @@ public class Alphabet {
             assert (least >= 0);
 
             for(int i = 0; i < least; ++i){
-                portion.add(charset.get(position + i));
+                portion.add(charset.get(position + i), true);
             }
             {
                 List<Letter> learnedSubrange = charset.subList(0, position);
                 Collections.shuffle(learnedSubrange);
                 for(int i = 0; i < portionSize - least; ++i){
-                    portion.add(learnedSubrange.get(i));
+                    portion.add(learnedSubrange.get(i), false);
                 }
             }
             position+= least;
         }
 
+        portion.shuffle();
         return portion;
     }
     // private:

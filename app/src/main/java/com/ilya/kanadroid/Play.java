@@ -1,13 +1,10 @@
 package com.ilya.kanadroid;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 
 public class Play {
     //public:
-
     public Play(IPlayUi playUi, final int level, Alphabet abc) {
         assert (level >= 1);
 
@@ -19,16 +16,11 @@ public class Play {
     }
 
     public boolean checkAnswer(String answer) {
-        String rightAnswer = currentLetter.reading;
-        if(answer.equals(rightAnswer)){
+        boolean ok = levelObject.checkAnswer(answer);
+        if(ok){
             ++right;
-            ++rightLetter[currentIndex];
-
-            System.out.println("Answers: " + Arrays.toString(rightLetter));
-
-            if(isAllTrue()){
+            if(levelObject.isFinished()){
                 boolean finished = abc.isFinished();
-                System.out.println("Update level");
                 if(finished) {
                     playUi.showCongratsWin();
                 }else {
@@ -37,27 +29,25 @@ public class Play {
                 updateLevel();
             }else{
                 System.out.println("Update letters");
-                updateLetter();
+                levelObject.updateLetter();
             }
-            return true;
         }else{
-            rightLetter[currentIndex] = 0;
             ++wrong;
-            updateLetter();
-            return false;
+            levelObject.updateLetter();
         }
+        return ok;
     }
 
     public Letter getCurrentLetter() {
-        return currentLetter;
+        return levelObject.getCurrentLetter();
     }
 
     public ArrayList<Letter> getLettersSet() {
-        return lettersSet;
+        return levelObject.getLettersSet();
     }
 
     public ArrayList<Letter> getButtonsSet() {
-        return buttonsSet;
+        return levelObject.getButtonsSet();
     }
 
     public int getRight() {
@@ -69,47 +59,16 @@ public class Play {
     }
 
     public int[] getRightLetter() {
-        return rightLetter;
+        return levelObject.getRightLetter();
     }
 
     // private:
-    private void updateLetter(){
-        currentIndex = (currentIndex + 1) % lettersSet.size();
-        setLetter(currentIndex);
-    }
-
-    private void setLetter(int index) {
-        Letter oldLetter = currentLetter;
-        Letter newLetter = lettersSet.get(index);
-
-        currentLetter = newLetter;
-    }
-
     private void updateLevel(){
         loadLetters();
-        currentIndex = 0;
         ++level;
     }
     private void loadLetters(){
-        lettersSet = abc.getNext();
-        Collections.shuffle(lettersSet);
-        buttonsSet = new ArrayList<Letter>(lettersSet);
-        Collections.shuffle(buttonsSet);
-
-        for(int i = 0; i < 5; ++i){
-            rightLetter[i] = 0;
-        }
-        setLetter(0);
-    }
-
-    private boolean isAllTrue() {
-        boolean allTrue = true;
-        for(int i = 0; i < 5; ++i) {
-            if(rightLetter[i] < 3) {
-                allTrue = false;
-            }
-        }
-        return allTrue;
+        levelObject = abc.getNext();
     }
 
     public int getLevel() {
@@ -126,15 +85,9 @@ public class Play {
 
     private final Random random = new Random();
 
-    private ArrayList<Letter> lettersSet = new ArrayList<Letter>(5);
-
-    private ArrayList<Letter> buttonsSet = new ArrayList<Letter>(5);
-    private Letter currentLetter;
+    private Level levelObject;
 
     private int level = 1;
     private int right = 0;
     private int wrong = 0;
-    private int currentIndex = 0;
-
-    private int[] rightLetter = new int[5];
 }
